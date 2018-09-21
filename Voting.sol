@@ -4,7 +4,7 @@ contract Voting {
   
   struct Voter{
     bool voted;
-    uint weight;
+    bool approval;
   }
   mapping(address => Voter) public voters;
   address public chairperson;
@@ -25,7 +25,7 @@ contract Voting {
   function Voting(bytes32[] candidateNames) public {
     candidateList = candidateNames;
     chairperson = msg.sender;
-        voters[chairperson].weight = 1;
+        voters[chairperson].approval = true;
   }
 
   function totalVotesFor(bytes32 candidate) view public returns (uint8) {
@@ -36,7 +36,7 @@ contract Voting {
   function voteForCandidate(bytes32 candidate) public {
     require(validCandidate(candidate));
     Voter storage sender = voters[msg.sender];
-    require(sender.weight == 1, "Not qualified to vote.");
+    require(sender.approval, "Not qualified to vote.");
     require(!sender.voted, "Already voted.");
     sender.voted = true;
     votesReceived[candidate] += 1;
@@ -70,8 +70,8 @@ contract Voting {
             !voters[voter].voted,
             "The voter already voted."
         );
-        require(voters[voter].weight == 0);
-        voters[voter].weight = 1;
+        require(!voters[voter].approval);
+        voters[voter].approval = true;
     }
 
 }

@@ -22,7 +22,7 @@ contract Voting {
 
   // Initialize all the contestants
   // This is the constructor
-  function Voting(bytes32[] candidateNames) public {
+  function constructor(bytes32[] candidateNames) public {
     candidateList = candidateNames;
     chairperson = msg.sender;
         voters[chairperson].approval = true;
@@ -75,11 +75,3 @@ contract Voting {
     }
 
 }
-
-
-//contract VoterRegistration{
-//  function giveRightToApprove(address approver) returns(address);
-//  function approve(bool approveStatus);
-//  function getApprovedApprovers() returns(address[]);
-//  function checkVoter();
-//}

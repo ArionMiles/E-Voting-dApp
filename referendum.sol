@@ -1,3 +1,6 @@
+// Mostly for experimental purposes in the last few hours of the hackathon.
+// sayNo() and sayYes() functions do not work. #TODO: Test why.
+
 pragma solidity ^0.4.18;
 
 contract Referendum {

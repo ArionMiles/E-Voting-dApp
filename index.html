@@ -5,10 +5,17 @@
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
 </head>
+<style>
+  body
+  {
+   padding: 10px;
+  }
+  </style>
 <body>
   <div id="index_block" hidden>
-  <h1>Remote Voting Using Blockchain</h1>
-  <div class="table-responsive">
+  
+  <div class="container">
+    <h1>Remote Voting Using Blockchain</h1>
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -18,40 +25,42 @@
       </thead>
       <tbody>
         <tr>
-          <td>Rama</td>
+          <td>BJP</td>
           <td id="candidate-1"></td>
         </tr>
         <tr>
-          <td>Nick</td>
+          <td>CONGRESS</td>
           <td id="candidate-2"></td>
         </tr>
         <tr>
-          <td>Jose</td>
+          <td>AAP</td>
           <td id="candidate-3"></td>
         </tr>
       </tbody>
     </table>
+    <input type="text" id="candidate" /><br/><br/>
+    <a href="#" onclick="voteForCandidate() & plotVotingGraph()" class="btn btn-primary">Vote</a>
+    <div id="votingGraph"></div>
   </div>
-  <input type="text" id="candidate" />
-  <a href="#" onclick="voteForCandidate() & plotVotingGraph()" class="btn btn-primary">Vote</a>
-  <div id="votingGraph"></div>
+ 
   </div>
-  <div id="login">
+  <div id="login" class="container">
       <div class="mainwrapper">
           <div class="innerwrap" style = "vertical-align:middle">
              <div class="content">
        
          <!--<form action = "fingerprint.html" method = "POST">-->
-         <h2>Enter your Aadhaar number</h1>
-         <input type = "Text" name = "AadharNo" minlength = "12" maxlength = "12">
-         <br><br>
-         <h2>Enter your Voter ID</h1>
-         <input type = "Text" name = "VoterID" minlength = "11" maxlength = "11">
-         <br><br>
-         <h2>Enter your Ethereum token</h1>
-         <input id="token" type = "Text" name = "Ethereum token" minlength = "42" maxlength = "42">
-         <br><br>
-         <button onClick="setTokenCookie()">Submit</button>
+        <h2>Enter your Ethereum token</h1>
+        <input id="token" type = "Text" name = "eth_token" minlength = "42" maxlength = "42">
+        <br><br>
+        <h2>Enter your Voter ID</h1>
+        <input type = "Text" name = "VoterID" minlength = "11" maxlength = "11">
+        <br><br>
+        <h2>Enter your Aadhaar number</h1>
+        <input type = "Text" name = "AadharNo" minlength = "12" maxlength = "12">
+        <br><br>
+        <img src="finger.jpg" height="100" width="100" align="left"><br><br><br><br><br><br>
+        <button onClick="setTokenCookie()">Submit</button>
          </div>
           </div>
        </div>

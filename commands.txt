@@ -23,4 +23,12 @@ web3.eth.defaultAccount = web3.eth.accounts[0]
 
 smart contract functions:
 > contractInstance.voteForCandidate('Rama')
+
+Give rights:
+contractInstance.giveRightToVote(web3.eth.accounts[1])
+
+Vote:
+contractInstance.voteForCandidate('CONGRESS', {from: web3.eth.accounts[5]})
+
+Tally votes:
 > contractInstance.totalVotesFor('Rama').toString()

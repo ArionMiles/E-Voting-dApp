@@ -20,3 +20,7 @@ contractInstance = VotingContract.at(deployedContract.address)
 
 add default account:
 web3.eth.defaultAccount = web3.eth.accounts[0]
+
+smart contract functions:
+> contractInstance.voteForCandidate('Rama')
+> contractInstance.totalVotesFor('Rama').toString()

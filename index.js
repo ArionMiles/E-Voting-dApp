@@ -2,26 +2,75 @@ web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 abi = JSON.parse('[{"constant":true,"inputs":[],"name":"chairperson","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"candidate","type":"bytes32"}],"name":"totalVotesFor","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"candidate","type":"bytes32"}],"name":"validCandidate","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"bytes32"}],"name":"votesReceived","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"voter","type":"address"}],"name":"giveRightToVote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"voters","outputs":[{"name":"voted","type":"bool"},{"name":"weight","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"candidateList","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"candidate","type":"bytes32"}],"name":"voteForCandidate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"candidateNames","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]')
 VotingContract = web3.eth.contract(abi);
 // In your nodejs console, execute contractInstance.address to get the address at which the contract is deployed and change the line below to use your deployed address
-contractInstance = VotingContract.at('0x2bde48d2cd264a69b852928865f7ed72265dbbc4');
+contractInstance = VotingContract.at('0xa6af0b0a7605a588f1e82cb7728ca71a42517985');
 candidates = {"Rama": "candidate-1", "Nick": "candidate-2", "Jose": "candidate-3"}
 
 function voteForCandidate(candidate) {
   candidateName = $("#candidate").val();
+  voterToken = $("#token").val();
   try {
-    contractInstance.voteForCandidate(candidateName, {from: web3.eth.accounts[0]}, function() {
+    contractInstance.voteForCandidate(candidateName, {from: getTokenVal()}, function() {
       let div_id = candidates[candidateName];
       $("#" + div_id).html(contractInstance.totalVotesFor.call(candidateName).toString());
+
     });
   } catch (err) {
   }
 }
 
 $(document).ready(function() {
-  candidateNames = Object.keys(candidates); //['Rama', 'Nick', 'Jose']
+  candidateNames = Object.keys(candidates);
+  var array_of_votes = []
   for (var i = 0; i < candidateNames.length; i++) {
     let name = candidateNames[i];
     let val = contractInstance.totalVotesFor.call(name).toString()
     $("#" + candidates[name]).html(val);
+    array_of_votes.push(val)
+  var data = [{
+    x: candidateNames,
+    y: array_of_votes,
+    type: 'bar'
+  }];
+  Plotly.newPlot('votingGraph', data);
+  //plotVotingGraph(candidateNames, array_of_votes)
   }
 });
 
+function plotVotingGraph() {
+  candidateNames = Object.keys(candidates);
+  var array_of_votes = []
+  for (var i = 0; i < candidateNames.length; i++) {
+    let name = candidateNames[i];
+    let val = contractInstance.totalVotesFor.call(name).toString()
+    $("#" + candidates[name]).html(val);
+    array_of_votes.push(val)
+  var data = [{
+      labels: candidateNames,
+      values: array_of_votes,
+      type: 'pie'
+  }];
+  var layout = {
+    height: 400,
+    width: 500
+  };
+  Plotly.newPlot('votingGraph', data, layout);
+}}
+
+function setTokenCookie() {
+  // Set Token Cookie
+  var tokenVal = $("#token").value
+  document.cookie = `token=${tokenVal}; path=/`
+  document.getElementById("index_block").hidden = false;
+  document.getElementById("login").hidden = true;
+}
+
+function getTokenCookie() {
+  // Extracts and returns the token cookie; Handle when cookie not present
+  let tokenCookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1");   
+  return tokenCookieValue
+}
+
+function getTokenVal() {
+  // Get Token From DOM
+  return document.querySelector("#token").value
+}

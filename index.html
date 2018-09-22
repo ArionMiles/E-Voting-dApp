@@ -6,6 +6,7 @@
   <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
 </head>
 <body class="container">
+  <div id="index_block">
   <h1>Remote Voting Using Blockchain</h1>
   <div class="table-responsive">
     <table class="table table-bordered">
@@ -32,9 +33,16 @@
     </table>
   </div>
   <input type="text" id="candidate" />
-  <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Vote</a>
+  <a href="#" onclick="voteForCandidate() & plotVotingGraph()" class="btn btn-primary">Vote</a>
+  <div id="votingGraph"></div>
+  </div>
+  <!--<div id="login">
+    <input type="text" id="token"/>
+    <a href="#" onSubmit="setTokenCookie()">Login</a>
+  </div>-->
+
   <script src="https://d3js.org/d3.v4.min.js"></script>
-  <script src="draw_graph.js"></script>
+  <script src="plotly.min.js"></script>
 </body>
 <script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>

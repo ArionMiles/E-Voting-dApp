@@ -4,9 +4,10 @@
   "description": "Tutorial series by Mahesh Murthy: https://github.com/maheshmurthy/ethereum_voting_dapp",
   "main": "index.js",
   "dependencies": {
-    "ethereumjs-testrpc": "^3.0.3",
+    "ethereumjs-testrpc": "^3.9.2",
     "ganache-cli": "^6.1.8",
     "solc": "^0.4.25",
+    "testrpc": "0.0.1",
     "web3": "^0.20.2"
   },
   "devDependencies": {},

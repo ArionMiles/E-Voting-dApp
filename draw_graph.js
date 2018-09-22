@@ -1,7 +1,8 @@
-$.getScript("index.js", function(){
-	array_of_voters = voteForCandidate();
-})
-var dataset = array_of_voters;
+//$.getScript("index.js", function(){
+//	array_of_voters = voteForCandidate();
+//})
+//var dataset = array_of_voters;
+var dataset = [10,20,30,40]
 var svgwidth = 300, svgheight = 500, barpadding = 5;
 var barwidth = (svgbwidth / dataset.length);
 var svg = d3.select('svg')

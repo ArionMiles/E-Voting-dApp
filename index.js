@@ -63,9 +63,10 @@ function plotVotingGraph() {
   Plotly.newPlot('votingGraph', data, layout);
 }}
 
-function setTokenCookie(tokenVal) {
+function setTokenCookie() {
   // Set Token Cookie
-  document.cookie = `token=${tokenVal}; path=/`
+  debugger;
+  document.cookie = `token=${getTokenVal()}; path=/` // see this line
   document.getElementById("index_block").hidden = false;
   document.getElementById("login").hidden = true;
 }
